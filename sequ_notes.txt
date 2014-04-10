@@ -1,0 +1,371 @@
+zack mcginnis
+cs 300
+sequ project notes
+https://zm3@projects.cecs.pdx.edu/git/fa2013cs300-zm3
+
+
+
+CL0
+10/19/13
+
+-because I am running windows on my pc, i'm using
+cygwin with notepad++ for my python writing/editing.
+
+
+-For CL0, I have realized that the requirements so far are essentially
+filled by python's 'range' function
+
+-My code at this point is basically (range), with 
+an if statement which handles the 'start > end' condition
+and returns with no output.
+
+-I have written a few tests which will challenge the requirements
+posed in the sequCL0 specification.
+
+-These tests are basically just based on different inputs at the command line
+-I have tried to create a test for all of the obvious conditions (and expected results)
+specified in the assignment requirements.
+
+
+-Test results for sequCL0:
+
+--------------------------
+Command line input: 1, 10
+Expected output:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+Test Result: True
+-------------------------
+Command line input: 10, 1
+Expected output: 
+Test Result: True
+-------------------------
+Command line input: -3, 3
+Expected output:
+-3
+-2
+-1
+0
+1
+2
+3
+Test Result: True
+--------------------------
+Command line input: x, z
+Expected output: value error
+Test Result: value error
+--------------------------
+
+-----------------------
+So far, I haven't had to tinker too much with the sequCL0 code in order
+to pass the CL0 specifications.  
+Obviously, I believe this will change once the requirements/demands of sequ
+begin to increase in complexity.
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+NOTES FOR SEQU CL1 DUE 11/11/2013
+
+**i have renamed the sequ source file to "sequ.py" to avoid confusion
+**Previous titles for my .py source were in bad judgement and should be disregarded.
+
+We need to add our version, separator, format, equal width, help, and increment args to the parser.
+
+In order to limit confusion, we should separate the optional args into different groups.
+Specifically, if a separator is given, it will need it's own group.
+If a format or width are chosen, they will also need their own group since we do not want to 
+choose both format and width together.  Doing so will give us formatting errors.
+
+
+I have chosen to modify the sequRange function of the previous CL0, and title it sequ instead.
+This change is a little more descriptive as the function will now be calling the floatRange function.
+sequ will now accept start, end, and increment args as specified in CL1.  
+Also accepted will be floating point args given at the command line.
+
+We will apply the given format OR width inside of the main function, just before calling sequ.
+We apply the format specified using an if, elif, else statement to represent a format, a width, or
+no specified format.
+
+I have moved the print function to main (rather than inside of sequRange as it was previously).
+This is just a simpler way of organizing the manipulations as we progress through this project.
+
+As explained in the comments, we utilize a map to list the output from calling the sequ function.  
+We also apply the specified format to the list inside of the map function.
+Using the reduce function, the separator is applied when the strings are concatenated, which 
+will give us the spacing specified in the separator.
+
+In regards to the reduce function, I was helped greatly by some examples given at:
+http://www.bogotobogo.com/python/python_fncs_map_filter_reduce.php
+
+specifically, using reduce to concatenate a list of strings.  Using the separator between the strings, we are
+able to produce a friendly output.
+
+********
+NOTE****
+********
+I have added a function which differentiates user input args as type int or float,
+with an error being raised when arg type is neither.
+The type of arg is stored in start, end, and increment.
+
+----
+I am still having some issues with using -f at command line. I am nearly positive
+it is due to my lack of understanding of the --format argument, so I am working on that
+along with debugging the issues at hand.
+
+
+-Test results for sequCL1:
+--------------------------
+3 ints input
+Command line input: 1 3 1
+1
+2
+3
+Pass?yes
+--------------------------
+3 float input
+Command line input: 1.0 4.0 1.5
+Expected output:
+1.0
+2.5
+4.0
+Pass?yes
+--------------------------
+int,int,float
+Command line input: 1 3 0.5
+Expected output:
+1
+1.5
+2.0
+2.5
+3.0
+Pass?yes
+--------------------------
+int,float,int
+Command line input: 1 4.0 1
+Expected output:
+1
+2
+3
+4
+Pass?yes
+--------------------------
+float,int,int
+Command line input: 1.5 4 1
+Expected output:
+1.5
+2.5
+3.5
+Pass?yes
+--------------------------
+float,int,float
+Command line input: 1.5 4 1.5
+Expected output:
+1.5
+3.0
+Pass?yes
+--------------------------
+int,float,float
+Command line input: 1 4.0 1.5
+Expected output:
+1
+2.5
+4.0
+Pass?yes
+--------------------------
+float,float,int
+Command line input: 1.5, 4.0, 1
+Expected output:
+1.5
+2.5
+3.5
+Pass?yes
+--------------------------
+float,int
+Command line input: 1.5 4
+Expected output:
+1.5
+2.5
+3.5
+Pass?yes
+--------------------------
+int,float
+Command line input: 1 3.0
+Expected output:
+1
+2
+3
+Pass?yes
+--------------------------
+float,float
+Command line input: 1.1 3.3
+1.1
+2.2
+3.3
+Expected output:
+Pass?yes
+--------------------------
+int,int
+Command line input: 1 5
+Expected output:
+1
+2
+3
+4
+5
+Pass?yes
+--------------------------
+int
+Command line input: 3
+Expected output:
+1
+2
+3
+Pass?yes
+--------------------------
+float 
+Command line input: 3.0
+Expected output:
+1
+2
+3
+Pass?yes
+--------------------------
+no args provided
+Command line input:  
+Expected output:
+too few args
+Pass?yes
+-------------------------
+* to test -s separator arg
+Command line input: -s space 1.5 13.5 1.5
+Expected output:
+1.5space3.0space4.5space6.0space7.5space9.0space10.5space12.0space13.5
+Test Result: True
+-------------------------
+*to test formatstring
+Command line input: -f %4.4f 1.2424 12.4324 1.3425
+Expected output:
+Test Result: Fail
+
+I seem to be having trouble specifying a floating point format at the command line.
+
+--------------------------
+*to test -equal-width
+Command line input: -w 1 101 50
+Expected output:
+001
+051
+101
+Test Result: True
+
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+11/22/13
+CL2 NOTES
+-------------------
+-added --words arg in mutually exclusive group_1, with it's value stored in separator
+
+- added --pad arg in mutually exclusive group_2, with it's value stored in width.  
+Because only one char can be specified for the --pad arg, we need to implement a function which will
+take care of the automatic escaping which occurs at the command line for control codes.
+
+-added --pad-spaces arg in mutually exlusive group_2, with value stored in width.
+Each line of output will be printed with equal width, using leading spaces " ' ' ", to pad the lines.
+
+-The unEscape function allows single char input at the command line to be utilized as args rather than
+being control codes.
+
+-the padType function implements unEscape by passing the specified padding char as a string.  
+An error is raised if specified padding input is greater than one single char.
+
+
+-------
+I have realized that I have been confused as to the ordering of the start, increment, end args within
+the sequ function.  Until CL2, I have accepted args in the form of "start, end, increment" rather than the 
+correct (according to seq specifications) form of "start, increment, end".
+I became confused with python's "range function", since a specified increment is usually the last arg given
+at the command line.  In sequ, however, this is an obvious, and easily confusing difference.
+
+I have also added testfile.py, and have created tests for the updated CL2.  I have tried to transfer most of the 
+tests which I recorded in previous notes, though I may be missing a few.  Will update more as needed.
+
+------------------------------------------------
+CL3 
+---------------------------------
+to meet the specifications of cl3, I chose to create two additional .py files: one
+containing Alpha numerals/transitions and one containing Roman numerals/transitions.
+Within each of these .py files are function defs/constructors/initializers
+for each of the respective classes (alpha and roman).
+Roman also includes a list of rNumeral values and corresponding integer values as well.
+
+within sequ.py, I needed to create two lists (FORMAT_CHARWORDS, FORMAT_WORDTYPE).
+These lists essentially link each of the 4 keywords (and their 4 upper-class variants) with
+a char representation (upper and lower), as well as an argument type (int, float, ...) for each
+of the keywords.
+
+Functions added:
+	-whichType----determines the valuetype of a given start/end/inc if a keyword is not present
+	-space-----an iterable is generated such that the separator spaces every element 
+		which is iterated using the separator specified.
+	
+	-romanLength------used to define the max length of a string representation of the sequence.
+				determines the largest roman numeral string length of a given input
+
+Other changes:
+-decLength (in main) is used to simplify the formatting procedure.  using parts, we are able 
+to handle floats much better with respect to the pad, pad spaces, and equal width args.
+-formatType is determined first by checking to see if a format word is given, and if it is, we can
+determine its corresponding argtype using FORMAT_WORDTYPE.  other cases are handled.
+-formatChar...similar to formatType, formatChar is determined by checking if a formatWord is given.  If so,
+we know it has a corresponding value in FORMAT_CHARWORDS.  If not, aWord is created from checking formatType against FORMAT_WORDS
+-maxL is used to properly print formatString.  maxL is found by determining the largest string representation of the given
+type of sequence.
+-formatString applys specified formatting if stated at the command line, and if not, applies the given width along
+with the created maxL to print the desired sequence.
+-I have chosen to abandon the reduce function which I had previously used to concat the strings and separator.
+the reason i have done this is because as the sequences became larger, it became more difficult to properly format the
+output as specified.  
+-mapList is basically a representation of a sequence generated by the floatRange function which produces a list of ints.
+This list of ints is mapped with the specified format type, which is then mapped with the specified format string.
+-the mapList along with the separator are both placed into the space function, which acts similar to reduce in that
+the strings are concatenated with the separator in between the elements, but our space function is better equipped to handle trickier/larger inputs and sequences.
+
+---
+note
+----
+I have began to add tests to the testfile.py file instead of this text document.  I am still familiarizing
+myself with unittest and I am not 100% sure if this is the preferred testing method, but after talking with
+classmates I have tried to convert most of my tests to this file.  
+
+----------------------
+CL4
+------------------
+-NumberTheLines class is the action of the --number-lines arg
+-in the argparse group, 'end' argument is skipped when a file is read in from command line
+-defArg is determined again once it has been determined that a file has/has not been read in
+-in mapList, the count function is added to the map when a file is read at command line.  This is 
+the implementation of -number--lines.
+-for printing, the zip function is used with mapList and the file which has been read in.
+This enables us to iterate over each line and print to stdout, while implementing specified format when necessary.
+
+
+
+
+
+
+
+
+

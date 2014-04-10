@@ -1,0 +1,54 @@
+----------------------------------------------------
+SEQU CL0
+
+
+User will specify two command line args as ints
+DEF SEQU
+we must convert any input to int type
+range demands arg1 =< arg2
+
+if arg1 > arg2, return nothing
+else, range(arg1, arg2 + 1)
+print all i's in range sequence 
+
+DEF MAIN
+args = PARSER.parse_args()
+enter seqrange func
+
+main
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+SEQU CL1
+
+Create two groups of optional command line args
+"separator" will be specified and placed in it's own group,
+and it's value will be stored in 'separator'
+
+"format" and "equal width" are placed in their own group.
+their values will be stored in 'formatString' and 'width' respectively.
+
+the 'separator', 'formatString', and 'width' args are implemented 
+in main function, before we call sequ function.
+
+sequ function is changed to return floatRange output as 'map'.
+'map' is then manipulated in 'main' function.
+
+in main function, formatString value is specified based on user input.
+
+separator is defined in order to be used within the function.
+
+sequ is called inside of the map function, mapping it as a list using formatString input.
+The map function is placed within the reduce function, which concatenates the list of strings.
+the given separator is used in between each of the strings to produce the desired output.
+
+ 
+
+
+
+
+
+
+
+
+
